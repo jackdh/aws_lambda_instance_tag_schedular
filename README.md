@@ -12,7 +12,7 @@ There is also a handy upload bash script to automatically deploy the lambda to A
 ├── scheduler                   <-- Source code for a lambda function
 │   ├── __init__.py
 │   ├── app.py                  <-- Lambda function code
-│   ├── requirements.txt        <-- Lambda function code
+│   ├── requirements.txt        <-- Any possible requirements. (None needed here unless running locally)
 ├── upload.sh                   <-- Bash upload script
 ├── template.yaml               <-- SAM Template
 └── tests                       <-- Unit tests ( Not yet implemented )

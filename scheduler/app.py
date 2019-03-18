@@ -14,7 +14,13 @@ def lambda_handler(event, context):
 
     now = date.strftime("%H:%M")
 
-    times = [now]  # As a list so you can add in the previous 5 minutes to reduce lambda calls.
+    now = date.strftime("%H:%M")
+    nowMinus1 = (date - datetime.timedelta(minutes=1)).strftime("%H:%M")
+    nowMinus2 = (date - datetime.timedelta(minutes=2)).strftime("%H:%M")
+    nowMinus3 = (date - datetime.timedelta(minutes=3)).strftime("%H:%M")
+    nowMinus4 = (date - datetime.timedelta(minutes=4)).strftime("%H:%M")
+
+    times = [now, nowMinus1, nowMinus2, nowMinus3, nowMinus4]
 
     for region in client.describe_regions()['Regions']:
         region_name = region['RegionName']
@@ -42,7 +48,7 @@ def lambda_handler(event, context):
                 if rds_tag["Key"] == "Schedule:Shutdown" and rds_tag["Value"] in times and rds_instance["DBInstanceStatus"] == "available":
                     rds.stop_db_instance(DBInstanceIdentifier=rds_instance["DBInstanceIdentifier"])
                     rds_instances_to_stop.append(rds_instance["DBInstanceIdentifier"])
-                elif rds_tag["Key"] == "Schedule:Startup" and rds_tag["Value"] in times and rds_instance["DBInstanceStatus"] == "stopped" and not is_weekday():
+                elif rds_tag["Key"] == "Schedule:Startup" and rds_tag["Value"] in times and rds_instance["DBInstanceStatus"] == "stopped" and is_weekday():
                     rds.start_db_instance(DBInstanceIdentifier=rds_instance["DBInstanceIdentifier"])
                     rds_instances_to_start.append(rds_instance["DBInstanceIdentifier"])
 

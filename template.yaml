@@ -21,7 +21,7 @@ Resources:
         InstanceTimer:
           Type: Schedule
           Properties:
-            Schedule: rate(1 minutes)
+            Schedule: rate(5 minutes)
       Tags:
         Owner: jdalrymplehamilton
         Description: This lambda will scan all EC2 and RDS instances for shutdown / startup tags on 5 minute intervals.

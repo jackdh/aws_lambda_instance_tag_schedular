@@ -49,6 +49,16 @@ Resources:
                 - rds:DescribeDBInstances
                 - rds:ListTagsForResource
               Resource: "*"
+        - Version: '2012-10-17'
+          Statement:
+            - Sid: startstopsm
+              Effect: Allow
+              Action:
+                - sagemaker:ListNotebookInstances
+                - sagemaker:StopNotebookInstance
+                - sagemaker:StartNotebookInstance
+                - sagemaker:ListTags
+              Resource: "*"
     Tags:
       Owner: jdalrymplehamilton
       Description: This lambda will scan all EC2 and RDS instances for shutdown / startup tags on 5 minute intervals.
